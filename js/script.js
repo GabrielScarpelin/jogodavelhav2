@@ -4,33 +4,44 @@ const inicialState = {
     EMPATE: 0
 }
 const placarObject = {...inicialState}
-Object.freeze(inicialState)
+Object.freeze(inicialState) //OBJETOS DE PONTUACAO
 
-
-const jogadas = document.getElementsByClassName('container-jogadas')
-window.onload = function(){
+function adicionarEventListener(){
     let eventFunctions = []
-    for (let i = 0; i < 9; i++){
-        if (jogadas[i]){
-            jogadas[i].addEventListener('mouseout', function(){
-                jogadas[i].classList.remove(`${verificarVez()}-hover`)
-            })
-            jogadas[i].addEventListener('mouseenter', function(){
-                if(jogadas[i].childElementCount === 0){
-                    jogadas[i].classList.add(`${verificarVez()}-hover`) 
-                }
-            })
-            const newFunction = jogar.bind(null, i) /*Ajuda do stackoverflow para remover o evento e não poder jogar durante a tela de WINNER; 
-            explicação: Aqui é criado uma nova funcão a partir do bind JÁ COM O PARAMETRO I porém sem invocar, pois toda vez que tentava passar o jogar(i) ele invocava a função, 
-            desta maneira apenas deixei a função "no gatilho" para ser disparada a partir do newFunction ja com o parametro*/
-            eventFunctions.push(newFunction)
-            jogadas[i].addEventListener('click', newFunction)
+    this.adicionarEventos = function(){
+        for (let i = 0; i < 9; i++){
+            if (jogadas[i]){
+                jogadas[i].addEventListener('mouseout', function(){
+                    jogadas[i].classList.remove(`${verificarVez()}-hover`)
+                })
+                jogadas[i].addEventListener('mouseenter', function(){
+                    if(jogadas[i].childElementCount === 0){
+                        jogadas[i].classList.add(`${verificarVez()}-hover`) 
+                    }
+                })
+                const newFunction = jogar.bind(null, i) /*Ajuda do stackoverflow para remover o evento e não poder jogar durante a tela de WINNER; 
+                explicação: Aqui é criado uma nova funcão a partir do bind JÁ COM O PARAMETRO I porém sem invocar, pois toda vez que tentava passar o jogar(i) ele invocava a função, 
+                desta maneira apenas deixei a função "no gatilho" para ser disparada a partir do newFunction ja com o parametro*/
+                eventFunctions.push(newFunction)
+                jogadas[i].addEventListener('click', newFunction)
+            }
         }
+        document.getElementById('btnRestart').addEventListener('click', reiniciarJogo);
     }
-    document.getElementById('btnRestart').addEventListener('click', reiniciarJogo);
-    this.getFunctions = function(){
-        return eventFunctions
+    this.removerEventListener = function (){
+        for (let i = 0; i < eventFunctions.length; i++){
+            if (jogadas[i]){
+                jogadas[i].removeEventListener('click', eventFunctions[i])
+            }
+        }
+        document.getElementById('btnRestart').removeEventListener('click', reiniciarJogo)
+        eventFunctions = []
     }
+}
+const jogadas = document.getElementsByClassName('container-jogadas')
+const addRemoveEventos = new adicionarEventListener
+window.onload = function(){
+    addRemoveEventos.adicionarEventos()
 }
 function velha(){ //Função que verifica se deu velha
     let contador = 0
@@ -41,35 +52,7 @@ function velha(){ //Função que verifica se deu velha
     }
     if (contador === 9 && (winnerVerification()) === false){
         chamarTela(null, null)
-        removerEventListener()
     }
-}
-function verificarVez(){
-    let vezJogador = ''
-    let contadorVez = 0
-    for (let i = 0; i < jogadas.length; i++){
-        if (jogadas[i].childElementCount === 1){
-            contadorVez++
-        }
-    }
-    if((contadorVez%2) === 0){
-        vezJogador = 'x'
-    }
-    else {
-        vezJogador = 'o'
-    }
-
-    return vezJogador
-}
-function atualizarVezPlacar(){
-    const vezJogador = verificarVez()
-    document.getElementById('turn-image').setAttribute('src', `img/${vezJogador}.svg`)
-    if ((placarObject.X != document.getElementById('pontos-x').innerText) || (placarObject.O != document.getElementById('pontos-o').innerText) || (placarObject.EMPATE != document.getElementById('pontos-emp').innerText) ){
-        document.getElementById('pontos-x').innerText = placarObject.X
-        document.getElementById('pontos-o').innerText = placarObject.O
-        document.getElementById('pontos-emp').innerText = placarObject.EMPATE
-    }
-
 }
 function jogar(celPlayed){
     const celula = document.getElementById(`cel${celPlayed}`)
@@ -86,6 +69,30 @@ function jogar(celPlayed){
     }
 
 }
+function atualizarVezPlacar(){
+    const vezJogador = verificarVez()
+    document.getElementById('turn-image').setAttribute('src', `img/${vezJogador}.svg`)
+    if ((placarObject.X != document.getElementById('pontos-x').innerText) || (placarObject.O != document.getElementById('pontos-o').innerText) || (placarObject.EMPATE != document.getElementById('pontos-emp').innerText) ){
+        document.getElementById('pontos-x').innerText = placarObject.X
+        document.getElementById('pontos-o').innerText = placarObject.O
+        document.getElementById('pontos-emp').innerText = placarObject.EMPATE
+    }
+
+}
+
+function verificarPossibilidades(arrayTotal, numCelAtual) {
+    let arrayFinal = []
+    let indiceArrayFinal = 0;
+    arrayTotal.forEach(array => {
+        const procurando = array.find(elements => elements === numCelAtual)
+        if (procurando !== undefined) {
+            arrayFinal[indiceArrayFinal] = array
+            indiceArrayFinal++
+        }
+    })
+    return arrayFinal
+}
+
 function winnerVerification(numCel){
     let vencedor = false
     let jogadorVencedor = ''
@@ -132,13 +139,22 @@ function winnerVerification(numCel){
     }
     return vencedor
 }
-function removerEventListener(){
-    for (let i = 0; i < this.getFunctions().length; i++){
-        if (jogadas[i]){
-            jogadas[i].removeEventListener('click', this.getFunctions()[i])
+function verificarVez(){ //VERIFICA DE QUEM É A VEZ
+    let vezJogador = ''
+    let contadorVez = 0
+    for (let i = 0; i < jogadas.length; i++){
+        if (jogadas[i].childElementCount === 1){
+            contadorVez++
         }
     }
-    document.getElementById('btnRestart').removeEventListener('click', reiniciarJogo)
+    if((contadorVez%2) === 0){
+        vezJogador = 'x'
+    }
+    else {
+        vezJogador = 'o'
+    }
+
+    return vezJogador
 }
 function chamarTela(vencedor, arrayCelsWinner){
     if (vencedor === 'x' || vencedor === 'o'){
@@ -184,26 +200,13 @@ function chamarTela(vencedor, arrayCelsWinner){
             placarObject.EMPATE += 1
         }
         reiniciarJogo()
-        window.onload()
         atualizarVezPlacar()
     },{once:true})
 }
-function verificarPossibilidades(arrayTotal, numCelAtual) {
-    let arrayFinal = []
-    let indiceArrayFinal = 0;
-    arrayTotal.forEach(array => {
-        const procurando = array.find(elements => elements === numCelAtual)
-        if (procurando !== undefined) {
-            arrayFinal[indiceArrayFinal] = array
-            indiceArrayFinal++
-        }
-    })
-    return arrayFinal
-}
 function reiniciarJogo(){
-    removerEventListener()
+    addRemoveEventos.removerEventListener()
     for (let i = 0; i < jogadas.length; i++){
         jogadas[i].childNodes[0] == undefined ? null : jogadas[i].childNodes[0].remove()
     }
-    window.onload()
+    addRemoveEventos.adicionarEventos()
 }

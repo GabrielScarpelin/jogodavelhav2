@@ -205,4 +205,5 @@ function reiniciarJogo(){
     for (let i = 0; i < jogadas.length; i++){
         jogadas[i].childNodes[0] == undefined ? null : jogadas[i].childNodes[0].remove()
     }
+    window.onload()
 }

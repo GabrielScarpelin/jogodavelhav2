@@ -1,9 +1,3 @@
-@font-face {
-    font-family: 'Sensation';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Sensation'), url('https://fonts.cdnfonts.com/s/20468/Sonsation.woff') format('woff');
-}
 body{
     display: grid;
     background-color: rgb(255, 255, 255);
@@ -32,7 +26,7 @@ body{
 }
 .turn{
     display: flex;
-    width: 5.5vw;
+    width: 40%;
     height: 4vh;
     font-family: 'Sensation', sans-serif;
     font-size: 28px;
@@ -181,6 +175,12 @@ body{
     border-radius: 5px;
     cursor: pointer;
 }
+.vencedor{
+    position: absolute;
+    background-color: aliceblue;
+    width: 100vw;
+    height: 15vh; 
+}
 @keyframes entradaMensagem{
     0%{
         transform: translateX(-100vw);
@@ -203,9 +203,8 @@ body{
         width: 35vw;
 
     }
-    .tagP{
-        font-size: 6vh;
-    
+    #headerDiv{
+        width: 35vw;
     }
 }
 @media (max-width: 700px) {
@@ -215,10 +214,13 @@ body{
         grid-gap: 10px;
 
     }
-}
-.vencedor{
-    position: absolute;
-    background-color: aliceblue;
-    width: 100vw;
-    height: 15vh; 
+    #headerDiv{
+        width: 60vw;
+    }
+    .container-placar{
+        width: 60vw;
+    }
+    .placar{
+        font-size: 14px;
+    }
 }

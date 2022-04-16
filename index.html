@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Velha</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="js/script.js"></script>
+    <link href="http://fonts.cdnfonts.com/css/sensation" rel="stylesheet">
+                
+</head>
+<body class="fundoColor">
+    <div id="headerDiv">
+        <div>
+            <img src="img/x.svg" alt="" class="imgHeader">
+            <img src="img/o.svg" alt="" class="imgHeader">
+        </div>
+        <div class="turn fundoClaro">
+            <img src="img/x.svg" alt="" id="turn-image">
+            <p>VEZ</p>
+        </div>
+        <div class="voltarBtn" id="btnRestart">
+            <img src="img/voltar.png" alt="" class="imgHeader">
+        </div>
+    </div>
+    <div class="vencedorDiv">
+        <div class="mensagem">
+            <img src="img/x.svg" alt="" id="ganhadorImg">
+            <h1 class="ganhadorText">VENCEU</h1>
+        </div>
+        <div>
+            <button id="quit-btn" class="btnMenu">QUIT</button>
+            <button id="next-btn" class="btnMenu">NEXT ROUND</button>
+        </div>
+    </div>
+    <div id="velhaContainer" class="fundoColor">
+        <div class="container-jogadas fundoClaro" id="cel0">       
+        </div>
+        <div class="container-jogadas fundoClaro" id="cel1">
+        </div>
+        <div class="container-jogadas fundoClaro" id="cel2">
+        </div>
+        <div class="container-jogadas fundoClaro" id="cel3">
+        </div>
+        <div class="container-jogadas fundoClaro" id="cel4">
+        </div>
+        <div class="container-jogadas fundoClaro" id="cel5">
+        </div>
+        <div class="container-jogadas fundoClaro" id="cel6">
+        </div>
+        <div class="container-jogadas fundoClaro" id="cel7">
+        </div>
+        <div class="container-jogadas fundoClaro" id="cel8">
+        </div>
+    </div>
+    <div class="container-placar">
+        <div class="placar player-x">
+            <p>X (P1)</p>
+            <h2 id="pontos-x">0</h2>
+        </div>
+        <div id="empate" class="placar">
+            <p>EMPATE</p>
+            <h2 id="pontos-emp">0</h2>
+        </div>
+        <div class="placar player-o">
+            <p>O (P2)</p>
+            <h2 id="pontos-o">0</h2>
+        </div>
+    </div>
+</body>
+</html>

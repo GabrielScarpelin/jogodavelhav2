@@ -1,0 +1,218 @@
+body{
+    display: grid;
+    background-color: rgb(255, 255, 255);
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas: "f" "g" "h";
+    grid-gap: 4px;
+    align-items: center;
+    justify-items: center;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+}
+#headerDiv{
+    display: flex;
+    align-self: end;
+    align-items: center;
+    margin-bottom: 5px;
+    width: 20vw;
+    justify-content: space-between;
+
+}
+.imgHeader{
+    width: 17.5px;
+}
+.turn{
+    display: flex;
+    width: 5.5vw;
+    height: 4vh;
+    font-family: 'Sensation', sans-serif;
+    font-size: 28px;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 5px;
+}
+#turn-image{
+    width: 20px;
+    height: 20px;
+}
+.voltarBtn{
+    background-color: #a8bec9;
+    border-bottom: solid 3px rgb(114,135,147);
+    width: 35px;
+    height: 35px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+#velhaContainer{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-gap: 15px;
+    width: 20vw;
+    height: 40vh;
+    border-radius: 5px;
+}
+.x-hover {
+    background-image: url('img/xTransparent.svg');
+    background-size: 45px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.o-hover{
+    background-image: url('img/oTransparent.svg');
+    background-size: 45px;
+    background-repeat: no-repeat;
+    background-position: center;  
+}
+.fundoColor {
+    background-color:rgb(25,42,50);
+}
+.container-jogadas{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    border-radius: 10px;
+}
+.fundoClaro{
+    background-color: rgb(31,53,64);
+    border-bottom: rgb(15,32,42) solid 4px;
+}
+.container-placar{
+    display: flex;
+    align-self: start;
+    width: 20vw;
+}
+.player-x{
+    background-color: #31c3be;
+}
+.hidden{
+    display: none;
+}
+#empate{
+    margin-left: 15px;
+    margin-right: 15px;
+    background-color: #a8bec9;
+}
+.player-o{
+    background-color: rgb(219,172,76);
+}
+.o-color{
+    color: rgb(219,172,76);
+}
+.x-color{
+    color: #31c3be;
+}
+.empate-color{
+    color: #a8bec9;
+}
+.placar{
+    margin-top: 5px;
+    border-radius: 8px;
+    width: 100%;
+    font-family: 'Sensation', sans-serif;
+    font-size: 20px;
+    height: 6vh;
+}
+.placar p, .placar h2{
+    margin: 0;
+    padding: 0;
+    width: auto;
+    height: auto;
+    text-align: center;
+}
+.jogada{
+    width: 40px;
+}
+.vencedorDiv{
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 24px;
+    align-items: center;
+    width: 100vw;
+    height: 20vh;
+    background-color: #304b58;
+
+
+}
+.enter-animation-normal{
+    display: flex;
+    animation-name: entradaMensagem;
+    animation-duration: 2s;
+}
+.enter-animation-reverse{
+    display: flex;
+    animation-name: saidaMensagem;
+    animation-duration: 2s;
+}
+.mensagem{
+    font-family:'Sensation', sans-serif;
+    display: flex;
+}
+#ganhadorImg{
+    width: 45px;
+    margin-right: 15px;
+}
+#quit-btn{
+    height: 3vh;
+}
+#next-btn{
+    background-color: rgb(219,172,76);
+}
+.btnMenu{
+    font-family:'Sensation', sans-serif;
+    border: none;
+    font-size: 20px;
+    height: 3vh;
+    border-radius: 5px;
+    cursor: pointer;
+}
+@keyframes entradaMensagem{
+    0%{
+        transform: translateX(-100vw);
+    }
+    100%{
+        transform: translateX(0vw);
+    }
+}
+@keyframes saidaMensagem{
+    0%{
+        transform: translateX(0vw);
+    }
+    100%{
+        transform: translateX(-100vw);
+    }
+}
+@media (max-width:400px) {
+    #velhaContainer{
+        height: 20vh;
+        width: 35vw;
+
+    }
+    .tagP{
+        font-size: 6vh;
+    
+    }
+}
+@media (max-width: 700px) {
+    #velhaContainer{
+        height: 30vh;
+        width: 60vw;
+        grid-gap: 10px;
+
+    }
+}
+.vencedor{
+    position: absolute;
+    background-color: aliceblue;
+    width: 100vw;
+    height: 15vh; 
+}
